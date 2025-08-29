@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "nohit",
+	"version": "${version}",
+	"name": "NoHit+",
+	"description": "Prevents the user from hitting other players by canceling outgoing packets",
+	"authors": [
+		"Maganoos"
+	],
+	"contact": {
+		"homepage": "https://magkari.eu"
+	},
+	"license": "MIT",
+	"icon": "assets/nohit/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"eu.magkari.mc.nohit.NoHit"
+		]
+	},
+	"mixins": [
+		{
+			"config": "nohit.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.8",
+		"java": ">=21"
+	}
+}

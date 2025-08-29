@@ -1,0 +1,3 @@
+# NoHit+
+NoHit+ is a mod designed to prevent a player from accidentally or intentionally hitting other players in multiplayer environments. It works by intercepting and canceling outgoing attack packets, effectively disabling all forms of damage or hits toward other users. This ensures a completely non-aggressive experience while still allowing normal gameplay interactions like movement, item use, and chat. Ideal for those who want a peaceful multiplayer experience without affecting other game mechanics.
+<br>(Does not prevent arrow damage/attacks)

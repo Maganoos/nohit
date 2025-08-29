@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "eu.magkari.mc.nohit.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "MixinClientCommonNetworkHandler",
+    "PlayerInteractEntityC2SPacketAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
