@@ -5,7 +5,12 @@
 	"name": "NoHit+",
 	"description": "Prevents the user from hitting other players by canceling outgoing packets",
 	"authors": [
-		"Maganoos"
+		{
+			"name": "Maganoos",
+			"contact": {
+				"email": "magkari@pm.me"
+			}
+		}
 	],
 	"contact": {
 		"homepage": "https://magkari.eu"
@@ -16,6 +21,9 @@
 	"entrypoints": {
 		"client": [
 			"eu.magkari.mc.nohit.NoHit"
+		],
+		"modmenu": [
+			"eu.magkari.mc.nohit.config.ModMenuImpl"
 		]
 	},
 	"mixins": [
@@ -28,5 +36,9 @@
 		"fabricloader": ">=0.16.10",
 		"minecraft": ">=1.21.0",
 		"java": ">=21"
+	},
+	"suggests": {
+		"cloth-config": ">=19.0.0",
+		"modmenu": ">=15.0.0"
 	}
 }
