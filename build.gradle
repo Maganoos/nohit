@@ -68,7 +68,7 @@ jar {
 modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
 	projectId  = project.archives_base_name
-	versionName = ("NullBar v" + version)
+	versionName = ("NoHit+ v" + version)
 	uploadFile = remapJar
 	changelog = System.getenv("CHANGELOG")
 	dependencies {
