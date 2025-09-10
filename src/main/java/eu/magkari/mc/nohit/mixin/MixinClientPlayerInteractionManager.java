@@ -21,7 +21,7 @@ public class MixinClientPlayerInteractionManager {
         ItemStack stack = player.getStackInHand(hand);
 
         if (NoHit.getConfig().bows && NoHit.getConfig().enabled && (stack.isOf(Items.BOW)) || stack.isOf(Items.CROSSBOW)) {
-            assert mc.player != null;
+            if (mc.player == null) return;
             NoHit.sendMessage(mc.player);
             cir.setReturnValue(ActionResult.PASS);
         }

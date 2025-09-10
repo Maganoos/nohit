@@ -19,11 +19,10 @@ public class MixinClientCommonNetworkHandler {
 	private void onSendPacket(Packet<?> packet, CallbackInfo ci) {
 		if (packet instanceof PlayerInteractEntityC2SPacket interactPacket && NoHit.getConfig().enabled) {
 			MinecraftClient mc = MinecraftClient.getInstance();
-			if (mc.world == null) return;
+			if (mc.world == null || mc.player == null) return;
 
 			Entity target = mc.world.getEntityById(((PlayerInteractEntityC2SPacketAccessor) interactPacket).getEntityId());
 			if (target instanceof PlayerEntity) {
-                assert mc.player != null;
 				NoHit.sendMessage(mc.player);
 				ci.cancel();
 			}
