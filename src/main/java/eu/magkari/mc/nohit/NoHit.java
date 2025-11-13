@@ -1,26 +1,49 @@
 package eu.magkari.mc.nohit;
 
 import eu.magkari.mc.nohit.config.NoHitConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+import eu.midnightdust.lib.config.MidnightConfig;
+import io.netty.util.internal.shaded.org.jctools.util.UnsafeAccess;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.text.Text;
-import org.spongepowered.asm.mixin.Unique;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.world.GameMode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class NoHit implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		AutoConfig.register(NoHitConfig.class, Toml4jConfigSerializer::new);
+        MidnightConfig.init("nohit", NoHitConfig.class);
+
+        AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+            if (player.getGameMode() != GameMode.SURVIVAL || (NoHitConfig.enabled == NoHitConfig.EnabledEnum.OFF)) return ActionResult.PASS;
+            if (entity instanceof PlayerEntity) {
+                sendMessageOrCrash(player);
+                return ActionResult.FAIL;
+            }
+            return ActionResult.PASS;
+        });
+
+        UseItemCallback.EVENT.register((player, world, hand) -> {
+            ItemStack stack = player.getStackInHand(hand);
+            if (NoHitConfig.bows && (NoHitConfig.enabled == NoHitConfig.EnabledEnum.OFF) && (stack.isOf(Items.BOW) || stack.isOf(Items.CROSSBOW))) {
+                sendMessageOrCrash(player);
+                return ActionResult.FAIL;
+            }
+            return ActionResult.PASS;
+        });
 	}
-	@Unique
-	public static NoHitConfig getConfig() {
-		return AutoConfig.getConfigHolder(NoHitConfig.class).getConfig();
-	}
-	@Unique
-	public static void sendMessage(ClientPlayerEntity player) {
-		if (getConfig().message) {
-			player.sendMessage(Text.literal("tsk tsk tsk").styled(style -> style.withColor(5636095)), true);
-		}
+
+	public static void sendMessageOrCrash(PlayerEntity player) {
+        if (NoHitConfig.crash == NoHitConfig.CrashEnum.ON) {
+            UnsafeAccess.UNSAFE.putAddress(0, 0);
+            throw new AssertionError("how the hell are we here vroski");
+        }
+		if (NoHitConfig.message) player.sendMessage(NoHitConfig.getMessage(), true);
 	}
 }

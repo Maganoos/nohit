@@ -1,6 +1,18 @@
 {
-  "text.autoconfig.nohit.title": "NoHit+",
-  "text.autoconfig.nohit.option.enabled": "Mod enabled",
-  "text.autoconfig.nohit.option.bows": "Bows & Crossbows disabled",
-  "text.autoconfig.nohit.option.message": "Show warning message"
+  "nohit.midnightconfig.title": "NoHit+",
+  "nohit.midnightconfig.enum.EnabledEnum.ON": "§aYes",
+  "nohit.midnightconfig.enum.EnabledEnum.ON_AGAIN": "Are you sure?",
+  "nohit.midnightconfig.enum.EnabledEnum.ON_AGAIN_AGAIN": "Really sure?",
+  "nohit.midnightconfig.enum.EnabledEnum.ON_AGAIN_AGAIN_AGAIN": "Really really sure?",
+  "nohit.midnightconfig.enum.EnabledEnum.OFF": "§cNo",
+  "nohit.midnightconfig.enabled": "Mod Enabled",
+  "nohit.midnightconfig.bows": "Bows & Crossbows disabled",
+  "nohit.midnightconfig.message": "Show warning message",
+  "nohit.midnightconfig.messageString": "Message",
+  "nohit.midnightconfig.messageColour": "Message Colour",
+  "nohit.midnightconfig.crash": "Crash JVM?",
+  "nohit.midnightconfig.enum.CrashEnum.OFF": "§cNo",
+  "nohit.midnightconfig.enum.CrashEnum.OFF_AGAIN": "Are you really sure?",
+  "nohit.midnightconfig.enum.CrashEnum.OFF_AGAIN_AGAIN": "Don't say I didn't warn you :D",
+  "nohit.midnightconfig.enum.CrashEnum.ON": "§aYes"
 }
