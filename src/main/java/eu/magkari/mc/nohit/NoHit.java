@@ -2,18 +2,15 @@ package eu.magkari.mc.nohit;
 
 import eu.magkari.mc.nohit.config.NoHitConfig;
 import eu.midnightdust.lib.config.MidnightConfig;
-import io.netty.util.internal.shaded.org.jctools.util.UnsafeAccess;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
+import net.minecraft.client.util.GlfwUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.GameMode;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class NoHit implements ClientModInitializer {
 	@Override
@@ -31,7 +28,7 @@ public class NoHit implements ClientModInitializer {
 
         UseItemCallback.EVENT.register((player, world, hand) -> {
             ItemStack stack = player.getStackInHand(hand);
-            if (NoHitConfig.bows && (NoHitConfig.enabled == NoHitConfig.EnabledEnum.OFF) && (stack.isOf(Items.BOW) || stack.isOf(Items.CROSSBOW))) {
+            if (NoHitConfig.enabled != NoHitConfig.EnabledEnum.OFF && NoHitConfig.bows && (stack.isOf(Items.BOW) || stack.isOf(Items.CROSSBOW))) {
                 sendMessageOrCrash(player);
                 return ActionResult.FAIL;
             }
@@ -40,10 +37,7 @@ public class NoHit implements ClientModInitializer {
 	}
 
 	public static void sendMessageOrCrash(PlayerEntity player) {
-        if (NoHitConfig.crash == NoHitConfig.CrashEnum.ON) {
-            UnsafeAccess.UNSAFE.putAddress(0, 0);
-            throw new AssertionError("how the hell are we here vroski");
-        }
+        if (NoHitConfig.crash == NoHitConfig.CrashEnum.ON) GlfwUtil.makeJvmCrash();
 		if (NoHitConfig.message) player.sendMessage(NoHitConfig.getMessage(), true);
 	}
 }
